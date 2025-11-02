@@ -19,5 +19,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('logar/', auth_views.LoginView.as_view(template_name='logar.html'), name='logar'),
+    path('logar', auth_views.LoginView.as_view(template_name='logar.html'), name='logar'),
+    path('deslogar', views.deslogar, name='deslogar'),
+    path('registrar', views.registrar, name='registrar'),
 ]

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+<form action="{% url 'registrar' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Registrar">
+    <input type="hidden" name="next" value="{% url 'index' %}">
+</form>
+
+{% endblock conteudo %}

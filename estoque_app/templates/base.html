@@ -8,13 +8,17 @@
 <body>
     <header>
         <menu>
-            <a href="{% url 'index' %}">Home</a>
-            {% if user.is_authenticated %}
-            <a href="#">{{user.username}}</a>
-            {% else %}
-            <a href="{% url 'logar' %}">Entrar</a>
-            {% endif %}
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'registrar' %}">Cadastrar Usuario</a></li>
+                <li><a href="{% url 'deslogar' %}">Sair</a></li>
+                {% else %}
+                <li><a href="{% url 'logar' %}">Entrar</a></li>
+                {% endif %}
+            </ul>
         </menu>
+        
     </header>
 
     {% block conteudo %} {% endblock %}
