@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Loja XYZ - Logar
+{% endblock titulo %}
+
+{% block conteudo %}
+
+    <h1>LOGAR</h1>
+
+    <form action="{% url 'logar' %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Entrar">
+        <input type="hidden" name="next" value="{% url 'index' %}">
+    </form>
+
+{% endblock conteudo %}

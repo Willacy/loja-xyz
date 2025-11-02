@@ -2,6 +2,11 @@
 {% block titulo%} Página Inicial {% endblock %}
 
 {% block conteudo %}
-    <h1>Bem-vindo ao Sistema de Estoque da Loja XYZ</h1>
+    {% if user.is_authenticated %}
+    <h1>Bem-vindo, {{user.username}}! </h1>
     <p>Use o menu para navegar pelas funcionalidades.</p>
+    {% else %}
+    <h1>Bem-vindo ao Sistema de Estoque da Loja XYZ </h1>
+    <p>Faça Login para aessar o sistema.</p>
+    {% endif %}
 {% endblock %}

@@ -6,6 +6,16 @@
     <title>{% block titulo %} {% endblock %}</title>
 </head>
 <body>
+    <header>
+        <menu>
+            <a href="{% url 'index' %}">Home</a>
+            {% if user.is_authenticated %}
+            <a href="#">{{user.username}}</a>
+            {% else %}
+            <a href="{% url 'logar' %}">Entrar</a>
+            {% endif %}
+        </menu>
+    </header>
 
     {% block conteudo %} {% endblock %}
     
