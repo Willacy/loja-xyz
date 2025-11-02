@@ -9,7 +9,7 @@
         <ul>
             {% for categoria in categorias %}
                 <li>{{ categoria.nome }}</li>
-                <a href="{% url 'editar_categoria' categoria.id %}"><button>Editar</button></a><button>Remover</button>
+                <a href="{% url 'editar_categoria' categoria.id %}"><button>Editar</button></a><a href="{% url 'excluir_categoria' categoria.id%}"><button>Remover</button></a>
             {% empty %}
                 <li>Nenhuma categoria cadastrada.</li>
             {% endfor %}
