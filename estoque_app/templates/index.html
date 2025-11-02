@@ -3,10 +3,28 @@
 
 {% block conteudo %}
     {% if user.is_authenticated %}
-    <h1>Bem-vindo, {{user.username}}! </h1>
-    <p>Use o menu para navegar pelas funcionalidades.</p>
+        <h1>Bem-vindo, {{user.username}}! </h1>
+        <p>Use o menu para navegar pelas funcionalidades.</p>
+        <hr>
+        <div class="cadastro">
+            <h3>CADASTRO:</h3>
+            <ul>
+                <li><a href="{% url 'registrar' %}">Usuário</a></li>
+                <li><a href="#">Fornecedor</a></li>
+                <li><a href="{% url 'categorias' %}">Categoria</a></li>
+                <li><a href="#">Produto</a></li>
+            </ul>
+        </div>
+        
+        <div class="movimentacao">
+            <h3>MOVIMENTAÇÃO:</h3>
+            <ul>
+                <li><a href="#">Entrada</a></li>
+                <li><a href="#">Saída</a></li>
+            </ul>
+        </div>
     {% else %}
-    <h1>Bem-vindo ao Sistema de Estoque da Loja XYZ </h1>
-    <p>Faça Login para aessar o sistema.</p>
+        <h1>Bem-vindo ao Sistema de Estoque da Loja XYZ </h1>
+        <p>Faça Login para aessar o sistema.</p>
     {% endif %}
 {% endblock %}

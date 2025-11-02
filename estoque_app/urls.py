@@ -18,5 +18,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('categorias/', views.categorias, name='categorias'),
+    path('nova_categoria', views.nova_categoria, name='nova_categoria'),
+    path('editar_categoria/<categoria_id>/', views.editar_categoria, name='editar_categoria'),
 ]
