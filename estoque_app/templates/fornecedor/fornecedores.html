@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Fornecedores {% endblock %}
+
+{% block conteudo %}
+<h1>Lista de Fornecedores</h1>
+<hr>
+<a href="{% url 'novo_fornecedor' %}"><button>Novo</button></a>
+<div class="fornecedor-lista">
+    <ul>
+        {% for fornecedor in fornecedores %}
+        <li>{{ fornecedor.nome }}</li>
+        <a href="{% url 'editar_fornecedor' fornecedor.id %}"><button>Editar</button></a><a
+            href="{% url 'excluir_fornecedor' fornecedor.id %}"><button>Remover</button></a>
+        {% empty %}
+        <li>Nenhuma fornecedor cadastrada.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

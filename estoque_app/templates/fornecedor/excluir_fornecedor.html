@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Excluir Fornecedor {% endblock %}
+
+{% block conteudo %}
+    <div>
+        <p>Excluir realmente o fornecedor  <strong>{{fornecedor.nome}}?</strong></p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Sim, excluir</button>
+        </form>
+        <a href="{% url 'fornecedores' %}"> <button>Cancelar</button></a>
+    </div>
+{% endblock %}
