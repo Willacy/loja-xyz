@@ -3,28 +3,53 @@
 
 {% block conteudo %}
     {% if user.is_authenticated %}
-        <h1>Bem-vindo, {{user.username}}! </h1>
-        <p>Use o menu para navegar pelas funcionalidades.</p>
+        <h1 class="text-success">Bem-vindo, {{user.username}}! </h1>
+        <p class="m-3">Use o menu para navegar pelas funcionalidades.</p>
         <hr>
-        <div class="cadastro">
-            <h3>CADASTRO:</h3>
-            <ul>
-                <li><a href="{% url 'registrar' %}">Usuário</a></li>
-                <li><a href="{% url 'fornecedores' %}">Fornecedor</a></li>
-                <li><a href="{% url 'categorias' %}">Categoria</a></li>
-                <li><a href="{% url 'produtos' %}">Produto</a></li>
-            </ul>
-        </div>
+        <!-- Lista de Cartões -->
+        <div class="card-group" style="width: 40rem;">
+            <!-- card para cadastro -->
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="cadastro card text-center text-white bg-success  me-3" style="width: 14rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">CADASTRO</h5>
+                        </div>
         
-        <div class="movimentacao">
-            <h3>MOVIMENTAÇÃO:</h3>
-            <ul>
-                <li><a href="#">Entrada</a></li>
-                <li><a href="#">Saída</a></li>
-            </ul>
-        </div>
+                        <ul class="list-group list-group-flush">
+                            <li><a class="list-group-item" href="{% url 'registrar' %}">Usuário</a></li>
+                            <li><a class="list-group-item" href="{% url 'fornecedores' %}">Fornecedor</a></li>
+                            <li><a class="list-group-item" href="{% url 'categorias' %}">Categoria</a></li>
+                            <li><a class="list-group-item" href="{% url 'produtos' %}">Produto</a></li>
+                        </ul>
+                    </div>
+            </div>
+            </div>
+            <!-- fim card para cadastro -->
+
+            <!-- card para movimentação -->
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="movimentacao card text-center text-white bg-success mb-1" style="width: 14rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">MOVIMENTAÇÃO</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li><a class="list-group-item" href="#">Entrada</a></li>
+                            <li><a class="list-group-item" href="#">Saída</a></li>
+                        </ul>
+                    </div>
+            </div>
+            </div>
+            <!-- fim card para movimentação -->
+            </div>
+            <!-- Fim Lista de Cartões -->
+
     {% else %}
-        <h1>Bem-vindo ao Sistema de Estoque da Loja XYZ </h1>
-        <p>Faça Login para aessar o sistema.</p>
+        <div class="jumbotron">
+            <h1 class="text-success">Bem-vindo ao Sistema de Estoque da Loja XYZ </h1>
+        </div>
+        <p class="m-3">Faça Login para aessar o sistema.</p>
     {% endif %}
+
 {% endblock %}

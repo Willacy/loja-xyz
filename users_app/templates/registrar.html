@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
+{% load django_bootstrap5 %}
+
 {% block conteudo %}
 
-<form action="{% url 'registrar' %}" method="post">
+<form action="{% url 'registrar' %}" method="post" class="form">
     {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Registrar">
+    {% bootstrap_form form%}
+    {% bootstrap_button "REGISTRAR" button_type="submit" button_class="btn-primary" %}
+    <!-- <input type="submit" value="Registrar"> -->
     <input type="hidden" name="next" value="{% url 'index' %}">
 </form>
 
