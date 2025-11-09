@@ -2,8 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .models import Categoria, Fornecedor
-from .forms import CategoriaForm, FornecedorForm
+from .models import Categoria, Fornecedor, Produto
+from .forms import CategoriaForm, FornecedorForm, ProdutoForm
 
 # Página inicial
 def index(request):
@@ -109,3 +109,51 @@ def excluir_fornecedor(request, fornecedor_id):
         return HttpResponseRedirect(reverse('fornecedores'))
     contexto = {'fornecedor': fornecedor}
     return render(request, 'fornecedor/excluir_fornecedor.html', contexto)
+
+# >>>>>>>>>> PRODUTOS <<<<<<<<<<
+# Função para listar os Produtos
+@login_required
+def produtos(request):
+    """Mostra todos os produtos cadastrado"""
+    produtos = Produto.objects.all().order_by('nome')
+    contexto = {'produtos' : produtos}
+    return render(request,'produto/produtos.html', contexto)
+
+# Função para adicionar uma novo Produto
+@login_required
+def novo_produto(request):
+    """ Adiciona um novo produto"""
+    if request.method == 'POST':
+        form = ProdutoForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return HttpResponseRedirect(reverse('produtos'))
+    else:
+        form = ProdutoForm()
+    contexto = {'form': form}
+    return render(request, 'produto/novo_produto.html', contexto)
+
+# Função para editar Produto
+@login_required
+def editar_produto(request, produto_id):
+    """Edita um produto existente"""
+    produto = Produto.objects.get(id=produto_id)
+    if request.method == 'POST':
+        form = ProdutoForm(data=request.POST, instance=produto)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('produtos'))
+    else:
+        form = ProdutoForm(instance=produto)    
+    contexto = {'form': form, 'produto': produto}
+    return render(request, 'produto/editar_produto.html', contexto)
+
+# Função para deletar produto
+@login_required
+def excluir_produto(request, produto_id):
+    produto = Produto.objects.get(id=produto_id)
+    if request.method == 'POST':
+        produto.delete()
+        return HttpResponseRedirect(reverse('produtos'))
+    contexto = {'produto': produto}
+    return render(request, 'produto/excluir_produto.html', contexto)

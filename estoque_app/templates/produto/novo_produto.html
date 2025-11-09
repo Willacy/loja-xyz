@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Novo Produto {% endblock %}
+
+{% block conteudo %}
+    <div class="novoProduto">
+        <h3>Cadastro de Produto</h3>
+        <hr>
+        <form action="{% url 'novo_produto' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Cadastrar</button>
+        </form>
+        <a href="{% url 'produtos' %}">Voltar para Produtos</a>
+    </div>
+{% endblock conteudo %}

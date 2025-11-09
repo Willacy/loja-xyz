@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Editar Produto {% endblock %}
+
+{% block conteudo %}
+    <form action="{% url 'editar_produto' produto.id %}" method="post" class="form">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar Alterações</button>
+
+    </form>
+    <a href="{% url 'produtos' %}">Voltar para Produtos</a>
+{% endblock %}

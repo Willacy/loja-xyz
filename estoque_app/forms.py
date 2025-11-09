@@ -1,5 +1,5 @@
 from django import forms
-from .models import Categoria, Fornecedor
+from .models import Categoria, Fornecedor, Produto
 
 # form da Categoria
 class CategoriaForm(forms.ModelForm):
@@ -24,4 +24,22 @@ class FornecedorForm(forms.ModelForm):
             'cnpj':'C.N.P.J.',
             'email':'E-mail',
             'telefone':'Telefone'
+            }
+
+# form do Produto    
+class ProdutoForm(forms.ModelForm):
+    categoria = forms.ModelChoiceField(queryset=Categoria.objects.all().order_by('nome'), empty_label='Selecione uma categoria')
+    class Meta:
+        model = Produto
+        fields = [
+            'categoria',
+            'nome', 
+            'descricao', 
+            'quantidade_estoque'
+            ]
+        labels = {
+            'categoria':'Categoria',
+            'nome':'Nome',
+            'descricao':'Descrição',
+            'quantidade_estoque':'Quantidade'
             }

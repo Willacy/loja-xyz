@@ -55,4 +55,3 @@ class Mov_saida(models.Model):
 
     def __str__(self):
         return f'Movimento de saída: {self.saida_produto.quantidade} unidades de {self.produto.nome}'
-    
