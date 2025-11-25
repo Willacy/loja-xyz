@@ -12,10 +12,8 @@
 
     <form class="form m-3" action="{% url 'logar' %}" method="post">
         {% csrf_token %}
-        {% bootstrap_form form %}
-        <!-- {{form.as_p}} -->
-        {% bootstrap_button "Entrar" button_type="submit" button_class="btn-primary" %}
-        <!-- <input class="btn btn-primary" type="submit" value="Entrar"> -->
+        {{form.as_p}}
+        <input class="btn btn-primary" type="submit" value="Entrar">
         <input type="hidden" name="next" value="{% url 'index' %}">
     </form>
 

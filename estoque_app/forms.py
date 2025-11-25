@@ -1,4 +1,6 @@
 from django import forms
+from django.forms.widgets import *
+from django.contrib.auth.models import User
 from .models import Categoria, Fornecedor, Produto
 
 # form da Categoria
@@ -8,6 +10,14 @@ class CategoriaForm(forms.ModelForm):
         fields = ['nome', 'descricao']
         labels = {'nome': 'Nome', 'descricao': 'Descrição'}
         widgets = {'descricao': forms.Textarea(attrs={'cols': 80})}
+    def __init__(self, *args, **kwargs):
+        super().__init__(self, *args, **kwargs)
+        self.fields['nome'].widget.attrs.update(
+                {
+                    'placeholder':'Nome',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
 
 # form do fornecedor    
 class FornecedorForm(forms.ModelForm):
