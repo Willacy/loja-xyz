@@ -1,23 +1,27 @@
 from django.shortcuts import render
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import login as auth_login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from .forms import LoginForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from .forms import LoginForm
 
 # Create your views here.
 
-def logar(request):
-    """Realiza o logon"""
-    if request.method != 'POST':
+def logar (request):
+    if request.method == "GET":
         form = LoginForm()
-    else:
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            form.save()
+        contexto = {'form':form}
+        return render(request,'logar.html', contexto)
+    elif request.method == "POST":
+        user = authenticate(
+            username = request.POST.get('nome'),
+            password = request.POST.get('senha'),
+        )
+        if user:
+            auth_login (request, user = user)
             return HttpResponseRedirect(reverse('index'))
-    context = {'form': form}
-    return render(request,'logar.html', context)
+        else:
+            return HttpResponseRedirect(reverse('logar'))
         
 def deslogar (request):
     """Faz o logout do usuario e redireciona para  a pagina inicial"""

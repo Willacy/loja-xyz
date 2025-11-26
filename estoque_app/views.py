@@ -28,16 +28,16 @@ def nova_categoria(request):
         form = CategoriaForm(request.POST)
         if form.is_valid:
             form.save()
-            return HttpResponseRedirect(reverse('categorias'))
+        return HttpResponseRedirect(reverse('categorias'))
     else:
         form = CategoriaForm()
-    contexto = {'form': form}
+    contexto = {'form': form} 
     return render(request, 'categoria/nova_categoria.html', contexto)
         
 
 # Função para editar categoria
 @login_required
-def editar_categoria(request, categoria_id):
+def editar_categoria(request, categoria_id): 
     """Edita uma categoria existente"""
     categoria = Categoria.objects.get(id=categoria_id)
     if request.method == 'POST':

@@ -8,13 +8,19 @@ class CategoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
         fields = ['nome', 'descricao']
-        labels = {'nome': 'Nome', 'descricao': 'Descrição'}
+        labels = {'nome': '', 'descricao': ''}
         widgets = {'descricao': forms.Textarea(attrs={'cols': 80})}
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['nome'].widget.attrs.update(
                 {
                     'placeholder':'Nome',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+        self.fields['descricao'].widget.attrs.update(
+                {
+                    'placeholder':'Descrição',
                     'class':'col form-control my-2 p-2'
                 }
             )
