@@ -3,7 +3,7 @@
 
 {% block conteudo %}
     {% if user.is_authenticated %}
-        <h1 class="text-success">Bem-vindo, {{user.username}}! </h1>
+        <h1 class="text-success">Bem-vindo, {{user.first_name}}! </h1>
         <p class="m-3">Use o menu para navegar pelas funcionalidades.</p>
         <hr>
         <!-- Lista de Cartões -->

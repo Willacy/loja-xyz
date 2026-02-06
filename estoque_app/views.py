@@ -51,12 +51,13 @@ def editar_categoria(request, categoria_id):
     return render(request, 'categoria/editar_categoria.html', contexto)
 
 # Função para deletar categoria
-@login_required
+# @login_required
 def excluir_categoria(request, categoria_id):
     categoria = Categoria.objects.get(id=categoria_id)
-    if request.method == 'POST':
-        categoria.delete()
-        return HttpResponseRedirect(reverse('categorias'))
+    if request.user.is_authenticated and request.user.has_perm("estoque_app.delete_categoria"): 
+        if request.method == 'POST':
+            categoria.delete()
+            return HttpResponseRedirect(reverse('categorias'))
     contexto = {'categoria': categoria}
     return render(request, 'categoria/excluir_categoria.html', contexto)
 

@@ -10,14 +10,17 @@
             <i class="bi bi-plus-square me-2" ></i>
             NOVA
         </button>
+    
     </a>
-
+    
     <div class="categoria-lista">
         <ul>
             {% for categoria in categorias %}
                 <li>{{ categoria.nome }}</li>
-                <a href="{% url 'editar_categoria' categoria.id %}"><button>Editar</button></a>
-                <a href="{% url 'excluir_categoria' categoria.id%}"><button>Remover</button></a>
+                <a href="{% url 'editar_categoria' categoria.id %}"><button class="btn btn-success">Editar</button></a>
+                {% if perms.estoque_app.delete_categoria %}
+                    <a href="{% url 'excluir_categoria' categoria.id%}"><button class="btn btn-danger">Remover</button></a>
+                {% endif %}
             {% empty %}
                 <li>Nenhuma categoria cadastrada.</li>
             {% endfor %}
