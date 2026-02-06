@@ -1,9 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from .models import Categoria, Fornecedor, Produto
-from .forms import CategoriaForm, FornecedorForm, ProdutoForm
+from django.urls import is_valid_path, reverse
+from .models import *
+from .forms import *
 
 # Página inicial
 def index(request):
@@ -157,3 +157,55 @@ def excluir_produto(request, produto_id):
         return HttpResponseRedirect(reverse('produtos'))
     contexto = {'produto': produto}
     return render(request, 'produto/excluir_produto.html', contexto)
+
+# >>>>>>>>>> ENTRADA <<<<<<<<<<
+@login_required
+# Função para listar as Entradas
+def entrada(request):
+    """Lista as entradas"""
+    entradas = EntradaProduto.objects.all().order_by('data_entrada')
+    contexto = {'entradas': entradas}
+    return render(request,'entrada/entradas.html', contexto)
+
+# Função para nova entrada
+@login_required
+def nova_entrada(request):
+    """Adiciona uma nova entrada de produto"""
+    if request.method == 'POST':
+        form = EntradaForm(request.POST)        
+        if form.is_valid:
+            produto = Produto.objects.get(id=request.POST.get('produto'))
+            produto.quantidade_estoque += int(request.POST.get('quantidade'))
+            produto.save()
+            form.save()
+            return HttpResponseRedirect(reverse('entrada'))
+    else:
+        form = EntradaForm()
+    contexto = {'form': form}
+    return render(request,'entrada/nova_entrada.html', contexto)
+
+# >>>>>>>>>> SAIDA <<<<<<<<<<
+@login_required
+# Função para listar as Saidas
+def saida(request):
+    """Lista as saidas"""
+    saidas = SaidaProduto.objects.all().order_by('data_saida')
+    contexto = {'saidas': saidas}
+    return render(request,'saida/saidas.html', contexto)
+
+# Função para nova entrada
+@login_required
+def nova_saida(request):
+    """Adiciona uma nova saida de produto"""
+    if request.method == 'POST':
+        form = SaidaForm(request.POST)
+        if form.is_valid:
+            produto = Produto.objects.get(id=request.POST.get('produto'))
+            produto.quantidade_estoque -= int(request.POST.get('quantidade'))
+            produto.save()
+            form.save()
+            return HttpResponseRedirect(reverse('saida'))
+    else:
+        form = SaidaForm()
+    contexto = {'form': form}
+    return render(request,'saida/nova_saida.html', contexto)

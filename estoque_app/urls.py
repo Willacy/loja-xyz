@@ -36,4 +36,13 @@ urlpatterns = [
     path('produto/novo', views.novo_produto, name='novo_produto'),
     path('produto/<produto_id>/editar', views.editar_produto, name='editar_produto'),
     path('produto/<produto_id>/deletar/', views.excluir_produto, name='excluir_produto'),
+    
+    # >>>>>>>>>> REFERENTE A ENTRADA DE PRODUTOS <<<<<<<<<<
+    path('entradas', views.entrada, name = 'entrada'),
+    path('entrada/nova', views.nova_entrada, name='nova_entrada'),
+    
+    # >>>>>>>>>> REFERENTE A SAIDA DE PRODUTOS <<<<<<<<<<
+    path('saidas', views.saida, name = 'saida'),
+    path('saida/nova', views.nova_saida, name='nova_saida'),
+
 ]

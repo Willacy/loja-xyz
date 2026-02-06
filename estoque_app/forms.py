@@ -1,7 +1,7 @@
 from django import forms
 from django.forms.widgets import *
 from django.contrib.auth.models import User
-from .models import Categoria, Fornecedor, Produto
+from .models import *
 
 # form da Categoria
 class CategoriaForm(forms.ModelForm):
@@ -59,3 +59,78 @@ class ProdutoForm(forms.ModelForm):
             'descricao':'Descrição',
             'quantidade_estoque':'Quantidade'
             }
+
+# form da Entrada
+class EntradaForm(forms.ModelForm):
+    fornecedor = forms.ModelChoiceField(queryset=Fornecedor.objects.all().order_by('nome'), empty_label='Selecione um fornecedor')
+    produto = forms.ModelChoiceField(queryset=Produto.objects.all().order_by('nome'), empty_label='Selecione um produto')
+    class Meta:
+        model = EntradaProduto
+        fields =[
+            'fornecedor',
+            'produto',
+            'quantidade',
+        ]
+        # labels = {
+        #     'fornecedor': '',
+        #     'produto': '',
+        #     'quantidade': '',
+        # }
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['forncedor'].widget.attrs.update(
+                {
+                    'placeholder':'Fornecedor',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+            self.fields['produto'].widget.attrs.update(
+                {
+                    'placeholder':'Produto',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+            self.fields['quantidade'].widget.attrs.update(
+                {
+                    'placeholder':'Quantidade',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+            
+# form da Saida
+class SaidaForm(forms.ModelForm):
+    produto = forms.ModelChoiceField(queryset=Produto.objects.all().order_by('nome'), empty_label='Selecione um produto')
+    class Meta:
+        model = SaidaProduto
+        fields =[
+            'produto',
+            'motivo',
+            'quantidade',
+        ]
+        # labels = {
+        #     'produto': '',
+        #     'motivo': '',
+        #     'quantidade': '',
+        # }
+        widgets = {'motivo':TextInput()}
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['produto'].widget.attrs.update(
+                {
+                    'placeholder':'Produto',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+            self.fields['motivo'].widget.attrs.update(
+                {
+                    'placeholder':'Motivo',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+            self.fields['quantidade'].widget.attrs.update(
+                {
+                    'placeholder':'Quantidade',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+

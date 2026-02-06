@@ -4,26 +4,26 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="shortcut icon" href="{}" type="image/x-icon">
     <title>{% block titulo %} {% endblock %}</title>
 </head>
 <body>
-    <!-- {% load django_bootstrap5 %} -->
-    <!-- {% bootstrap_css %}
-    {% bootstrap_javascript %}
-    {% bootstrap_messages %} -->
     <header>
         
         <nav class="navbar navbar-expand-lg navbar-dark bg-success ms-2 me-2 mb-2">
 
-            <div class="container-fluid ms-3">
-                <span class="navbar-brand mb-0 h1">Loja XYZ</span>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <div class="container ms-3">
+                <div class="ms-5">
+                    <img src="{% static 'img/logoXYZ.png' %}" alt="" width="100" height="50">
+                    <span class="navbar-brand mb-0 h1">Loja XYZ</span>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link {% if request.path == '/'%} active {% endif %}"
@@ -38,7 +38,7 @@
                     </ul>
                 </div>
                 
-                </div>
+            </div>
 
         </nav>
         
@@ -51,7 +51,10 @@
     
         <div class="container" style="width: 60rem;">
             {% if request.path != '/' %}
-                <a class="btn btn-secondary" href="{% url 'index' %}">Voltar para a página inicial</a>
+                <a class="btn btn-secondary m-3" href="{% url 'index' %}">
+                    <i class="bi bi-box-arrow-in-left"></i>
+                    <i class="bi bi-house"></i>
+                </a>
                 {% endif %}
                 </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"

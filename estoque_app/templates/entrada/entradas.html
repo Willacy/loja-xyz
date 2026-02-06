@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Entradas {% endblock %}
+
+{% block conteudo %}
+<h1>Entradas de Produtos</h1>
+<hr>
+<a href="{% url 'nova_entrada' %}"><button>Nova</button></a>
+<div class="entradas-lista">
+    <ul>
+        {% for entrada in entradas %}
+        <li>{{ entrada.data_entrada }} - {{ entrada.produto.nome}}</li>
+        <!-- <a href="#"><button>Editar</button></a><a
+            href="#"><button>Remover</button></a> -->
+        {% empty %}
+        <li>Nenhuma entrada encontrada.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

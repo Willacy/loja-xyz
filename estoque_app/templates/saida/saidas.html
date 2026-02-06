@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Saida {% endblock %}
+
+{% block conteudo %}
+<h1>Saidas de Produtos</h1>
+<hr>
+<a href="{% url 'nova_saida' %}"><button>Nova</button></a>
+<div class="saida-lista">
+    <ul>
+        {% for saida in saidas %}
+        <li>{{ saida.data_saida }} - {{ saida.produto.nome}}</li>
+        <!-- <a href="#"><button>Editar</button></a><a
+            href="#"><button>Remover</button></a> -->
+        {% empty %}
+        <li>Nenhuma entrada encontrada.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

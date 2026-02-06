@@ -39,13 +39,7 @@ class SaidaProduto(models.Model):
     quantidade = models.IntegerField()
     data_saida = models.DateTimeField(auto_now_add=True)
     motivo = models.TextField(blank=True, null=True)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE, related_name='mov_saidas')
 
     def __str__(self):
         return f'Saída de {self.quantidade} unidades de...'
-    
-class Mov_saida(models.Model):
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE, related_name='mov_saidas')
-    saida_produto = models.ForeignKey(SaidaProduto, on_delete=models.CASCADE, related_name='mov_saidas')
-
-    def __str__(self):
-        return f'Movimento de saída: {self.saida_produto.quantidade} unidades de {self.produto.nome}'
