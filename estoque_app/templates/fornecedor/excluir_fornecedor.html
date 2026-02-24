@@ -6,8 +6,8 @@
         <p>Excluir realmente o fornecedor  <strong>{{fornecedor.nome}}?</strong></p>
         <form method="post">
             {% csrf_token %}
-            <button type="submit">Sim, excluir</button>
+            <button type="submit" class="btn btn-success">Sim, excluir</button>
         </form>
-        <a href="{% url 'fornecedores' %}"> <button>Cancelar</button></a>
+        <a href="{% url 'fornecedores' %}"> <button class="btn btn-danger">Cancelar</button></a>
     </div>
 {% endblock %}

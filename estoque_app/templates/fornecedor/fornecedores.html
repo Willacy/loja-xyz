@@ -4,13 +4,18 @@
 {% block conteudo %}
 <h1>Lista de Fornecedores</h1>
 <hr>
-<a href="{% url 'novo_fornecedor' %}"><button>Novo</button></a>
+<a href="{% url 'novo_fornecedor' %}">
+    <button class="btn btn-success m-3">
+        <i class="bi bi-plus-square me-2"></i>
+        NOVO
+    </button>
+</a>
 <div class="fornecedor-lista">
     <ul>
         {% for fornecedor in fornecedores %}
         <li>{{ fornecedor.nome }}</li>
-        <a href="{% url 'editar_fornecedor' fornecedor.id %}"><button>Editar</button></a><a
-            href="{% url 'excluir_fornecedor' fornecedor.id %}"><button>Remover</button></a>
+        <a href="{% url 'editar_fornecedor' fornecedor.id %}"><button class="btn btn-success">Editar</button></a><a
+            href="{% url 'excluir_fornecedor' fornecedor.id %}"><button class="btn btn-danger">Remover</button></a>
         {% empty %}
         <li>Nenhuma fornecedor cadastrada.</li>
         {% endfor %}
