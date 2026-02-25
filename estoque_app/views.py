@@ -1,16 +1,39 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, Permission
 from django.urls import is_valid_path, reverse
 from .models import *
 from .forms import *
+from django.contrib.auth.hashers import make_password
 
 # Página inicial
 def index(request):
     """Pagina inicial do sistema """
     return render(request, 'index.html')
 
+@login_required
+def painel(request):
+    contexto ={
+        'users': User.objects.all()
+    }
+    return render(request, 'painel.html', contexto)
 
+@login_required
+def editarUsuario(request, user_id):
+    """Edita um usuario existente"""
+    usuario = User.objects.get(id=user_id)
+    if request.method == 'POST':
+        form = UserForm(data=request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('painel'))
+    else:
+        form = UserForm(instance=usuario)  
+        permissoes = Permission.objects.all()
+    contexto = {'form': form, 'usuario': usuario, 'permissoes': permissoes}
+    return render(request, 'editarUsuario.html', contexto)
+    
 
 # >>>>>>>>>> CATEGORIA <<<<<<<<<<
 @login_required

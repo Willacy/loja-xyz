@@ -29,6 +29,8 @@
                         <li class="nav-item"><a class="nav-link {% if request.path == '/'%} active {% endif %}"
                                 href="{% url 'index' %}">Home</a></li>
                         {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link {% if request.path == '/'%} active {% endif %}" href="{% url 'painel' %}">Painel
+                                Administrativo</a></li>
                         <li class="nav-item"><a class="nav-link {% if request.path == '/users/deslogar'%} active {% endif %}"
                                 href="{% url 'deslogar' %}">Sair</a></li>
                         {% else %}

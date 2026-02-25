@@ -3,6 +3,46 @@ from django.forms.widgets import *
 from django.contrib.auth.models import User
 from .models import *
 
+# form da Usuario
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'first_name', 'last_name', 'email']
+        labels = {'username': '', 'password': '', 'first_name' : '', 'last_name' : '', 'email' : ''}
+        widgets = {'password':PasswordInput()}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update(
+                {
+                    'placeholder':'Nome de Usuario',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+        self.fields['password'].widget.attrs.update(
+                {
+                    'placeholder':'Senha',
+                    'class':'col form-control my-2 p-2',
+                }
+            )
+        self.fields['first_name'].widget.attrs.update(
+                {
+                    'placeholder':'Nome',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+        self.fields['last_name'].widget.attrs.update(
+                {
+                    'placeholder':'Sobrenome',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+        self.fields['email'].widget.attrs.update(
+                {
+                    'placeholder':'E-mail',
+                    'class':'col form-control my-2 p-2'
+                }
+            )
+
 # form da Categoria
 class CategoriaForm(forms.ModelForm):
     class Meta:

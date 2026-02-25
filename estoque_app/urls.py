@@ -19,6 +19,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('painel/', views.painel, name='painel'),
+    path('painel/<user_id>/editarUsuario', views.editarUsuario, name='editarUsuario'), 
+    
     # >>>>>>>>>> REFERENTE A CATEGORIA <<<<<<<<<<
     path('categorias/', views.categorias, name='categorias'),
     path('categoria/nova', views.nova_categoria, name='nova_categoria'),

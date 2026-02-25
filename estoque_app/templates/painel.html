@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block titulo%} Loja XYZ - Painel Administrativo {% endblock %}
+
+{% block conteudo %}
+<table class="table">
+    <thead class="table">
+        <tr>
+            <td>Nome</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.first_name }}</td>
+            <td>
+                <a class="btn btn-warning" href="{% url 'editarUsuario' user.id%}"> Editar</a>
+                <a class="btn btn-danger" href="#"> Remover</a>
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock conteudo %}
