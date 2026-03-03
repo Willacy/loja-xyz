@@ -15,8 +15,7 @@ def index(request):
 @login_required
 def painel(request):
     contexto ={
-        'users': User.objects.all(),
-        # 'id_atual': id_atual
+        'users': User.objects.all()
     }
     return render(request, 'painel.html', contexto) 
 
