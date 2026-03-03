@@ -6,7 +6,7 @@
     <thead class="table">
         <tr>
             <td>Nome</td>
-            <td></td>
+            <td>Opções</td>
         </tr>
     </thead>
     <tbody>
@@ -14,8 +14,10 @@
         <tr>
             <td>{{ user.first_name }}</td>
             <td>
-                <a class="btn btn-warning" href="{% url 'editarUsuario' user.id%}"> Editar</a>
+                {% if user.id != id_atual %}
+                <a class="btn btn-warning" href="{% url 'editarUsuario' user.id %}"> Editar</a>
                 <a class="btn btn-danger" href="#"> Remover</a>
+                {% endif %}
             </td>
             
         </tr>

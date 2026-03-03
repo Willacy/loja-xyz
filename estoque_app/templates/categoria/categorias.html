@@ -4,26 +4,41 @@
 {% block conteudo %}
     <h1 class="text-success">Lista de Categorias</h1>
     <hr>
-    <a href="{% url 'nova_categoria' %}">
-    
-        <button class="btn btn-success m-3" >
-            <i class="bi bi-plus-square me-2" ></i>
-            NOVA
-        </button>
-    
-    </a>
     
     <div class="categoria-lista">
-        <ul>
-            {% for categoria in categorias %}
-                <li>{{ categoria.nome }}</li>
-                <a href="{% url 'editar_categoria' categoria.id %}"><button class="btn btn-success">Editar</button></a>
+        <table class="table">
+            <thead class="table">
+                <tr>
+                    <td>
+                        <strong>Categoria</strong>
+                    </td>
+                    <td>
+                        <a href="{% url 'nova_categoria' %}"> <button class="btn btn-success">Nova</button></a>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.nome }}</td>
+                    <td>
+                        <a href="{% url 'editar_categoria' categoria.id %}"><button class="btn btn-warning">Editar</button></a>
                 {% if perms.estoque_app.delete_categoria %}
-                    <a href="{% url 'excluir_categoria' categoria.id%}"><button class="btn btn-danger">Remover</button></a>
-                {% endif %}
-            {% empty %}
-                <li>Nenhuma categoria cadastrada.</li>
-            {% endfor %}
-        </ul>
+                    <a href="{% url 'excluir_categoria' categoria.id %}"><button class="btn btn-danger">Remover</button></a>
+                    {% endif %}
+                    </td>
+                    </tr>
+                {% empty %}
+                <tr>
+                    <td>
+                        Nenhuma categoria cadastrada.
+                    </td>
+                    <td>
+                
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
     </div>
 {% endblock %}

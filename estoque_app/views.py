@@ -15,19 +15,23 @@ def index(request):
 @login_required
 def painel(request):
     contexto ={
-        'users': User.objects.all()
+        'users': User.objects.all(),
+        # 'id_atual': id_atual
     }
-    return render(request, 'painel.html', contexto)
+    return render(request, 'painel.html', contexto) 
 
 @login_required
-def editarUsuario(request, user_id):
+def editarUsuario(request, user_id): 
     """Edita um usuario existente"""
     usuario = User.objects.get(id=user_id)
     if request.method == 'POST':
         form = UserForm(data=request.POST, instance=usuario)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('painel'))
+        if request.POST.get("password") == request.POST.get("confirmacao"):
+            if form.is_valid():
+                form.save(commit=False)
+                usuario.password = make_password(usuario.password)
+                form.save()
+                return HttpResponseRedirect(reverse('painel'))
     else:
         form = UserForm(instance=usuario)  
         permissoes = Permission.objects.all()

@@ -17,8 +17,10 @@ Including another URLconf
 from django.urls import path
 from . import views
 
-urlpatterns = [
+urlpatterns = [ 
     path('', views.index, name='index'),
+    
+    # >>>>>>>>>> REFERENTE AO PAINEL ADMINISTRATIVO <<<<<<<<<<
     path('painel/', views.painel, name='painel'),
     path('painel/<user_id>/editarUsuario', views.editarUsuario, name='editarUsuario'), 
     
