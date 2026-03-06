@@ -1,3 +1,5 @@
+from xml.sax import make_parser
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -24,17 +26,36 @@ def editarUsuario(request, user_id):
     """Edita um usuario existente"""
     usuario = User.objects.get(id=user_id)
     if request.method == 'POST':
-        form = UserForm(data=request.POST, instance=usuario)
+        copia_post = request.POST.copy()
+        if request.POST.get("password") == "" and request.POST.get("confirmacao") == "":
+            copia_post["password"] = usuario.password
+            copia_post["confirmacao"] = usuario.password
+        else:
+            copia_post["password"] = make_password(copia_post.get("password"))
+            copia_post["confirmacao"] = make_password(copia_post.get("confirmacao"))
+            
+        form = UserForm(data=copia_post, instance=usuario)
         if request.POST.get("password") == request.POST.get("confirmacao"):
             if form.is_valid():
-                form.save(commit=False)
-                usuario.password = make_password(usuario.password)
                 form.save()
+                usuario.user_permissions.clear()
+                for p in Permission.objects.all():
+                    if "p_"+str(p.id) in request.POST:
+                        permissao_nova = Permission.objects.get(id=p.id)
+                        usuario.user_permissions.add(permissao_nova)
                 return HttpResponseRedirect(reverse('painel'))
     else:
         form = UserForm(instance=usuario)  
         permissoes = Permission.objects.all()
-    contexto = {'form': form, 'usuario': usuario, 'permissoes': permissoes}
+        permissoes_usuario = Permission.objects.filter(user=usuario)
+    contexto = {
+        
+        'form': form, 
+        'usuario': usuario, 
+        'permissoes': permissoes,
+        'permissoes_usuario': permissoes_usuario
+        
+        }
     return render(request, 'editarUsuario.html', contexto)
     
 
